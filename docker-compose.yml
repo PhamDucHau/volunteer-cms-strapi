@@ -1,0 +1,17 @@
+services:
+  strapi:
+    build: .
+    container_name: volunteer-cms-strapi
+    restart: unless-stopped
+    ports:
+      - "1337:1337"
+    env_file:
+      - .env   # ✅ load tất cả biến từ file .env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 1337
+      STRAPI_DISABLE_TS_CHECKS: true
+    volumes:
+      - .:/app
+      - /app/node_modules
