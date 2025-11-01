@@ -632,12 +632,12 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiProductProduct extends Struct.CollectionTypeSchema {
-  collectionName: 'products';
+export interface ApiHomeHome extends Struct.CollectionTypeSchema {
+  collectionName: 'homes';
   info: {
-    displayName: 'Product';
-    pluralName: 'products';
-    singularName: 'product';
+    displayName: 'Home';
+    pluralName: 'homes';
+    singularName: 'home';
   };
   options: {
     draftAndPublish: true;
@@ -646,12 +646,16 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    data: Schema.Attribute.JSON;
+    description: Schema.Attribute.Text;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::product.product'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::home.home'> &
       Schema.Attribute.Private;
+    noteStatus: Schema.Attribute.Text;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.Text;
     updatedAt: Schema.Attribute.DateTime;
@@ -1176,7 +1180,7 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
-      'api::product.product': ApiProductProduct;
+      'api::home.home': ApiHomeHome;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
